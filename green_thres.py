@@ -6,6 +6,10 @@ import numpy as np
 if __name__=="__main__":
     src = cv.imread('S008/06-05-2019/104403.JPG')
     rgb = cv.cvtColor(src, cv.COLOR_BGR2RGB)
+    hsv = cv.cvtColor(rgb, cv.COLOR_RGB2HSV)
+    plt.figure()
+    plt.title('hsv')
+    plt.imshow(hsv)
     plt.figure()
     plt.title('original')
     plt.imshow(rgb)
