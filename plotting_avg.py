@@ -7,7 +7,7 @@ import datetime
 
 if __name__ == "__main__":
     min_max_scaler = MinMaxScaler()
-    directory = 'DATA'
+    directory = 'SPLIT'
     for sample in os.listdir(directory):
         if sample.__contains__('.csv'):
             sample_path = os.path.join(directory, sample)
@@ -17,9 +17,10 @@ if __name__ == "__main__":
             for vals in dates:
                 val = vals.split('-')
                 x_val.append(datetime.datetime(int(val[2]), int(val[0]), int(val[1])))
-            normal_growth = min_max_scaler.fit_transform(np.asarray(data.Value).reshape(-1, 1))
-            x_val.sort
+            #normal_growth = min_max_scaler.fit_transform(np.asarray(data.Value).reshape(-1, 1))
+            #x_val.sort
             plt.title(sample)
-            plt.plot_date(x_val, normal_growth, xdate=True, ydate=False, )
+            plt.plot_date(x_val, data.Value,)
+            plt.show()
 
-        plt.show()
+        #plt.show()
