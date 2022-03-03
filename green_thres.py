@@ -3,9 +3,6 @@ import matplotlib.pyplot as plt
 import numpy as np
 
 
-
-
-
 def green_extract(rgb):
     mod = rgb
     length, width, extra = rgb.shape
