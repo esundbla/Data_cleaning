@@ -21,6 +21,6 @@ if __name__ == "__main__":
             #x_val.sort
             plt.title(sample)
             plt.plot_date(x_val, data.Value,)
-            plt.show()
+    plt.show()
 
         #plt.show()
