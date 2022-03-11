@@ -11,31 +11,33 @@ from sklearn.preprocessing import MinMaxScaler
 import math
 
 
-def dataRead():
-    growth = pd.read_csv('SPLIT\SPLITS002.csv')
-    #data = pd.read_csv()
+def dataRead(g_path, d_path):
+    """ Tool to read in given path and return dataframes of csv values  """
+    growth = pd.read_csv(g_path)
+    data = pd.read_csv(d_path)
     return growth #data
 
 
 def expoLinear(growth):
-    min_max_scaler = MinMaxScaler()
-    size = np.asarray(growth.Value) #min_max_scaler.fit_transform(np.asarray(growth.Value).reshape(-1, 1))
-    #print(size)
-    y_transform = []
+    """ From Growth vs time data pull use regression to estimate an exponential curve with the form b*e^(ax)
+      Where b is the intercept an a is the coeficiant return a, b"""
+    size = np.asarray(growth.Value)
+    # We transform out y data by taking the natural log
+    # This allows us to use linear regression
+    y_transform = np.log(size)
+    # From the date info we get an integer representation for regression calculation
     x_as_dates = []
-    for num in size:
-        y_transform.append(np.log(num))
     for day in np.asarray(growth.Date):
         date = day.split('-')
-        #print(date)
         x_as_dates.append((int(date[0]) * 30) + int(date[1]))
+
+    # zip the modified values as a dataframe and run linear regression
     zipped = list(zip(x_as_dates, y_transform))
     modd = pd.DataFrame(zipped, columns=['Day', 'Value'])
-    #print(modd)
     reg = linear_model.LinearRegression().fit(np.asarray(modd.Day).reshape(-1,1), np.asarray(modd.Value).reshape(-1,1))
+
+    # Graph the resulting exponential equation as a function of time
     expon = -reg.intercept_*(math.e**(reg.coef_*x_as_dates))
-    #for x in x_as_dates:
-        #expon.append(-reg.intercept_*(2.718281**(reg.coef_*x)))
     plt.scatter(x_as_dates, expon)
     plt.show()
     return reg.coef_, reg.intercept_
