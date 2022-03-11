@@ -9,7 +9,7 @@ def green_extract(rgb):
     grn_pix_count = 0
     for i in range(length):
         for j in range(width):
-            if (mod[i, j, 0] < 125 and mod[i, j, 0] > 50) and mod[i, j, 1] > 135 and (mod[i, j, 2] > 80 and mod[i, j, 2] < 165):
+            if (mod[i, j, 0] < 125 and mod[i, j, 0] > 50) and mod[i, j, 1] > 50 and (mod[i, j, 2] > 25 and mod[i, j, 2] < 110):
                 grn_pix_count += 1
             else:
                 mod[i, j, :] = 0
@@ -18,7 +18,7 @@ def green_extract(rgb):
 
 
 if __name__ == "__main__":
-    src = cv.imread('S008/06-05-2019/104403.JPG')
+    src = cv.imread('S011/07-05-2019/23403.JPG')
     rgb = cv.cvtColor(src, cv.COLOR_BGR2RGB)
     plt.figure()
     plt.title('original')
